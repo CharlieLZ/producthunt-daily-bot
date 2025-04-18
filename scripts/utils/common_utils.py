@@ -5,13 +5,13 @@ from typing import Optional
 
 def convert_to_beijing_time(utc_time_str: str, language: str) -> str:
     """
-    将UTC时间字符串转换为北京时间字符串
+    Convert UTC time string to Beijing time string
     
     Args:
-        utc_time_str: UTC时间字符串，格式为'%Y-%m-%dT%H:%M:%SZ'
-        language: 语言: en/zh
+        utc_time_str: UTC time string, format '%Y-%m-%dT%H:%M:%SZ'
+        language: language: en/zh
     Returns:
-        str: 格式化的北京时间字符串
+        str: formatted Beijing time string
     """
     try:
         utc_time = datetime.strptime(utc_time_str, '%Y-%m-%dT%H:%M:%SZ')
@@ -22,7 +22,7 @@ def convert_to_beijing_time(utc_time_str: str, language: str) -> str:
         else:
             return beijing_time.strftime('%Y-%m-%d %p%I:%M (UTC+8 Beijing Time)')
     except Exception as e:
-        print(f"时间转换失败: {utc_time_str}, 错误: {e}")
+        print(f"Time conversion failed: {utc_time_str}, error: {e}")
         return utc_time_str
 
 
@@ -30,41 +30,41 @@ def convert_to_beijing_time(utc_time_str: str, language: str) -> str:
 
 def get_yesterday_date() -> str:
     """
-    获取昨天的日期字符串
+    Get yesterday's date string
     
     Returns:
-        str: 格式为'YYYY-MM-DD'的日期字符串
+        str: date string in 'YYYY-MM-DD' format
     """
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
     return yesterday.strftime('%Y-%m-%d')
 
 def ensure_directory_exists(directory: str) -> None:
     """
-    确保指定目录存在，如果不存在则创建
+    Ensure the specified directory exists, create if not
     
     Args:
-        directory: 目录路径
+        directory: directory path
     """
     if not os.path.exists(directory):
         os.makedirs(directory)
 
 def format_time_duration(seconds: float) -> str:
     """
-    格式化时间持续时间
+    Format time duration
     
     Args:
-        seconds: 秒数
+        seconds: number of seconds
     
     Returns:
-        str: 格式化的时间字符串，精确到小数点后2位
+        str: formatted time string, accurate to 2 decimal places
     """
-    return f"{seconds:.2f} 秒"
+    return f"{seconds:.2f} seconds"
 
 def get_current_time_str() -> str:
     """
-    获取当前时间的格式化字符串
+    Get formatted current time string
     
     Returns:
-        str: 格式为'YYYY-MM-DD HH:MM:SS'的时间字符串
+        str: time string in 'YYYY-MM-DD HH:MM:SS' format
     """
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
