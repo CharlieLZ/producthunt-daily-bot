@@ -10,20 +10,20 @@ class Product:
                  votesCount: int, createdAt: str, featuredAt: str, 
                  website: str, url: str, language: str, **kwargs):
         """
-        初始化Product对象
+        Initialize Product object
         
         Args:
-            id: 产品ID
-            name: 产品名称
-            tagline: 产品标语
-            description: 产品描述
-            votesCount: 投票数
-            createdAt: 创建时间
-            featuredAt: 精选时间
-            website: 产品网站
+            id: product ID
+            name: product name
+            tagline: product tagline
+            description: product description
+            votesCount: number of votes
+            createdAt: creation time
+            featuredAt: featured time
+            website: product website
             url: Product Hunt URL
-            language: 语言: en/zh
-            **kwargs: 其他参数
+            language: language: en/zh
+            **kwargs: other parameters
         """
         self.name = name
         self.tagline = tagline
@@ -44,14 +44,14 @@ class Product:
 
     def to_markdown(self, rank: int, language: str) -> str:
         """
-        生成产品的Markdown格式内容
+        Generate Markdown content for the product
         
         Args:
-            rank: 产品排名
-            language: 语言: en/zh
+            rank: product rank
+            language: language: en/zh
         
         Returns:
-            str: Markdown格式的产品信息
+            str: Markdown formatted product info
         """
         og_image_markdown = f"![{self.name}]({self.og_image_url})"
         if language == 'zh':
@@ -84,7 +84,7 @@ class Product:
             )
 
 def get_producthunt_token(api_key: str, api_secret: str) -> str:
-    """获取Product Hunt的access_token"""
+    """Get Product Hunt access_token"""
     url = "https://api.producthunt.com/v2/oauth/token"
     payload = {
         "client_id": api_key,
@@ -101,16 +101,16 @@ def get_producthunt_token(api_key: str, api_secret: str) -> str:
 
 def fetch_product_hunt_data(num: int, language: str, api_key: str, api_secret: str) -> List[Product]:
     """
-    从Product Hunt获取数据并返回Product对象列表
+    Fetch data from Product Hunt and return a list of Product objects
     
     Args:
-        num: 获取的产品数量
-        language: 语言: en/zh
+        num: number of products to fetch
+        language: language: en/zh
         api_key: Product Hunt API Key
         api_secret: Product Hunt API Secret
     
     Returns:
-        List[Product]: Product对象列表
+        List[Product]: list of Product objects
     """
     token = get_producthunt_token(api_key, api_secret)
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
