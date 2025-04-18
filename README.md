@@ -223,9 +223,8 @@ PAT获取方法：右上角个人头像 -> Settings -> Developer settings -> Per
 ---
 
 **联系方式：**  
-- Email: [你的邮箱]  
-- Twitter: [你的推特]  
-- GitHub: [你的GitHub主页]
+- Email: [hi@producthunt.ai]  
+心脏
 
 ---
 
