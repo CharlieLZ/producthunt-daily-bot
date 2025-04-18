@@ -5,32 +5,32 @@ from .ph_utils import Product
 
 def generate_markdown_file(products: List[Product], language: str) -> None:
     """
-    生成Markdown内容并保存到data目录
+    Generate Markdown content and save to data directory
     
     Args:
-        products: Product对象列表
-        date_str: 日期字符串
-        language: 语言: en/zh
+        products: list of Product objects
+        date_str: date string
+        language: language: en/zh
     """
     today = datetime.now(timezone.utc)
     date_today = today.strftime('%Y-%m-%d')
 
-    # 生成markdown内容
+    # Generate markdown content
     markdown_content = generate_markdown_content(products, date_today, language)
 
-    # 保存文件
+    # Save file
     save_markdown_file(markdown_content, date_today, language)
 
 def generate_markdown_content(products: List[Product], date_today: str, language: str) -> str:
     """
-    生成Markdown内容
+    Generate Markdown content
     
     Args:
-        products: Product对象列表
-        date_today: 今天的日期字符串
+        products: list of Product objects
+        date_today: today's date string
     
     Returns:
-        str: 生成的Markdown内容
+        str: generated Markdown content
     """
     if language == 'zh':
         markdown_content = f"# Product Hunt 今日热榜 | {date_today}\n\n"
@@ -42,16 +42,15 @@ def generate_markdown_content(products: List[Product], date_today: str, language
 
 def save_markdown_file(content: str, date_today: str, language: str) -> None:
     """
-    保存Markdown文件到data目录
+    Save Markdown file to data directory
     
     Args:
-        content: Markdown内容
-        date_today: 今天的日期字符串
+        content: Markdown content
+        date_today: today's date string
     """
     ensure_directory_exists(f'data/{language}')
     file_name = f"data/{language}/producthunt-daily-{date_today}.md"
 
-    
     with open(file_name, 'w', encoding='utf-8') as file:
         file.write(content)
-    print(f"文件 {file_name} 生成成功并已覆盖。")
+    print(f"File {file_name} generated and overwritten successfully.")
