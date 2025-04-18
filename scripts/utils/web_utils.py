@@ -4,13 +4,13 @@ from bs4 import BeautifulSoup
 
 def fetch_og_image(url: str) -> str:
     """
-    获取网页的Open Graph图片URL
+    Get the Open Graph image URL of a web page
     
     Args:
-        url: 网页URL
+        url: web page URL
     
     Returns:
-        str: Open Graph图片URL，如果未找到则返回空字符串
+        str: Open Graph image URL, returns empty string if not found
     """
     try:
         response = safe_request(url)
@@ -20,7 +20,7 @@ def fetch_og_image(url: str) -> str:
             if og_image and og_image.get("content"):
                 return og_image["content"]
     except Exception as e:
-        print(f"获取og:image失败: {url}, 错误: {e}")
+        print(f"Failed to get og:image: {url}, error: {e}")
     return ""
 
 def safe_request(
@@ -31,17 +31,17 @@ def safe_request(
     **kwargs
 ) -> Optional[requests.Response]:
     """
-    安全的HTTP请求封装
+    Safe HTTP request wrapper
     
     Args:
-        url: 请求URL
-        method: 请求方法，默认为"GET"
-        headers: 请求头
-        timeout: 超时时间（秒）
-        **kwargs: 传递给requests的其他参数
+        url: request URL
+        method: request method, default is "GET"
+        headers: request headers
+        timeout: timeout in seconds
+        **kwargs: other parameters passed to requests
     
     Returns:
-        Optional[requests.Response]: 响应对象，如果请求失败则返回None
+        Optional[requests.Response]: response object, returns None if request fails
     """
     try:
         response = requests.request(
@@ -54,7 +54,7 @@ def safe_request(
         response.raise_for_status()
         return response
     except requests.exceptions.RequestException as e:
-        print(f"请求失败: {url}, 错误: {e}")
+        print(f"Request failed: {url}, error: {e}")
         return None
 
 def make_request_with_retry(
@@ -65,17 +65,17 @@ def make_request_with_retry(
     **kwargs
 ) -> Optional[requests.Response]:
     """
-    带重试机制的HTTP请求
+    HTTP request with retry mechanism
     
     Args:
-        url: 请求URL
-        method: 请求方法，默认为"GET"
-        max_retries: 最大重试次数
-        retry_delay: 重试延迟（秒）
-        **kwargs: 传递给requests的其他参数
+        url: request URL
+        method: request method, default is "GET"
+        max_retries: maximum number of retries
+        retry_delay: retry delay in seconds
+        **kwargs: other parameters passed to requests
     
     Returns:
-        Optional[requests.Response]: 响应对象，如果所有重试都失败则返回None
+        Optional[requests.Response]: response object, returns None if all retries fail
     """
     from time import sleep
     
@@ -84,21 +84,21 @@ def make_request_with_retry(
         if response is not None:
             return response
         
-        if attempt < max_retries - 1:  # 如果不是最后一次尝试
+        if attempt < max_retries - 1:  # If not the last attempt
             sleep(retry_delay)
-            print(f"重试请求 {attempt + 1}/{max_retries}: {url}")
+            print(f"Retry request {attempt + 1}/{max_retries}: {url}")
     
     return None
 
 def parse_html(html_content: str, parser: str = 'html.parser') -> BeautifulSoup:
     """
-    解析HTML内容
+    Parse HTML content
     
     Args:
-        html_content: HTML字符串
-        parser: BeautifulSoup解析器类型
+        html_content: HTML string
+        parser: BeautifulSoup parser type
     
     Returns:
-        BeautifulSoup: 解析后的BeautifulSoup对象
+        BeautifulSoup: parsed BeautifulSoup object
     """
     return BeautifulSoup(html_content, parser)
